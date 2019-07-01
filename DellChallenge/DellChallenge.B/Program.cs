@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DellChallenge.B
 {
@@ -9,6 +10,22 @@ namespace DellChallenge.B
             // Given the classes and interface below, please constructor the proper hierarchy.
             // Feel free to refactor and restructure the classes/interface below.
             // (Hint: Not all species and Fly and/or Swim)
+
+            IList<ISpecies> species = new List<ISpecies>();
+            species.Add(new Human());
+            species.Add(new Bird());
+            species.Add(new Fish());
+
+            foreach (ISpecies s in species)
+            {
+                s.GetSpecies();
+                s.Drink();
+                s.Eat();
+                s.Fly();
+                s.Swim();
+
+                Console.WriteLine();
+            }
         }
     }
 
@@ -18,45 +35,83 @@ namespace DellChallenge.B
         void Drink();
         void Fly();
         void Swim();
+        void GetSpecies();
     }
 
-    public class Species
+    public abstract class Species: ISpecies
     {
         public virtual void GetSpecies()
         {
             Console.WriteLine($"Echo who am I?");
         }
-    }
 
-    public class Human : ISpecies
-    {
         public void Drink()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"I drink.");
         }
 
         public void Eat()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"I eat.");
         }
 
-        public void Fly()
+        public abstract void Fly();
+
+        public abstract void Swim();
+    }
+
+    public class Human : Species
+    {
+        public override void GetSpecies()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"I am Human.");
         }
 
-        public void Swim()
+        public override void Fly()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Humans don't fly by themselves, they use flying means.");
+        }
+
+        public override void Swim()
+        {
+            Console.WriteLine($"Human can swim.");
         }
     }
 
-    public class Bird
+    public class Bird: Species
     {
+        public override void GetSpecies()
+        {
+            Console.WriteLine($"I am a Bird");
+        }
+
+        public override void Fly()
+        {
+            Console.WriteLine($"Bird is flying");
+        }
+
+        public override void Swim()
+        {
+            Console.WriteLine($"Some birds can swim (swan, goose).");
+        }
     }
 
-    public class Fish
+    public class Fish:Species
     {
+        public override void GetSpecies()
+        {
+            Console.WriteLine($"I am a Fish.");
+        }
+
+        public override void Fly()
+        {
+            Console.WriteLine($"Fish is not flying.");
+        }
+
+        public override void Swim()
+        {
+            Console.WriteLine($"Fish is swiming.");
+        }
     }
 }
 

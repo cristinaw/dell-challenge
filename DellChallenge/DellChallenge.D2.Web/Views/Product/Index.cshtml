@@ -8,9 +8,24 @@
 
 @foreach (var item in Model)
 {
-    <div class="row">
-        <div class="col-md-4">
-            @item.Name - @item.Category
-        </div>
+<div class="row border-bottom">
+    <div class="col-md-4">
+
+        @item.Name - @item.Category     
     </div>
+    <div class="col-md-1">
+        <form asp-action="Edit" method="get" asp-route-id="@item.Id">
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1">
+        <form asp-action="DeletePost" method="post" asp-route-id="@item.Id">
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 }

@@ -7,6 +7,22 @@ namespace DellChallenge.A
         static void Main(string[] args)
         {
             // State and explain console output order.
+            /*
+             The output order is:
+             A.A()
+             B.B()
+             A.Age
+
+            Explaination:
+             A.A() // base constructor of derived class
+             B.B() // constructor of derived class
+             A.Age // setter property of Age
+
+            The instantiation of B is done using default constructor of B. 
+            B is derived from A. Default constructor of a base class is called automatically when an instance of derived class
+            is created (new B()), thus A.A() is written, then Console.WriteLine from B's constructor displays B.B().
+            and then because of set Age = 0 in B's constructor Console.WriteLine("A.Age"); from Age setter will output A.Age.
+             */
             new B();
             Console.ReadKey();
         }

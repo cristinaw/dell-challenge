@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Validation from "../validation";
+import Product from "../components/product";
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -9,6 +10,8 @@ class ProductList extends React.Component {
       isLoaded: false,
       items: []
     };
+	
+	
   }
 
   componentDidMount() {
@@ -32,6 +35,25 @@ class ProductList extends React.Component {
         }
       );
   }
+  
+  deleteProduct(productId) {
+    const { items } = this.state;
+
+    fetch("http://localhost:5000/api/products/delete/"+productId, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      mode: "cors",
+    })
+    .then(res => res.json())
+	.then(this.props.history.push('/products'))
+    .catch(err => console.log(err));
+  
+  redirectToEdit = (productId) => {
+    this.props.history.push("/product/" + id)
+  }
 
   render() {
     const { error, isLoaded, items } = this.state;
@@ -45,6 +67,8 @@ class ProductList extends React.Component {
             {items.map(item => (
               <li key={item.id}>
                 {item.name} - {item.category}
+				 <button onClick={t() => this.redirectToEdit(item.id)}>Edit</button>
+				<button onClick={() => this.deleteProduct(item.id)}>Delete</button>  
               </li>
             ))}
           </ul>
